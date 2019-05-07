@@ -1,38 +1,39 @@
 ---
-title: Hello World
+title: 🐱&🐷
+header_image: http://pr4gjrd98.bkt.clouddn.com/%E6%9D%AD%E5%B7%9E%E5%A4%9C%E6%99%AF-190317-59.jpg
 ---
-Welcome to [Hexo](https://hexo.io/)! This is your very first post. Check [documentation](https://hexo.io/docs/) for more info. If you get any problems when using Hexo, you can find the answer in [troubleshooting](https://hexo.io/docs/troubleshooting.html) or you can ask me on [GitHub](https://github.com/hexojs/hexo/issues).
+# 美少女韵喵喵与猪头少年的故事
 
-## Quick Start
+曾经我一直以为，喜欢看番打游戏的美少女是只存在于二次元的。就算在现实生活中存在，也是与我完全绝缘的。但是她就这样出现在了我的生命里，成为了我最重要的人之一。
 
-### Create a new post
+## 西湖寻龙记
 
-``` bash
-$ hexo new "My New Post"
-```
+我跟宇宙无敌美少女韵喵喵的故事，要从西湖边寻龙的故事说起。玩游戏总是令人快乐的因为你可以在游戏中获得很多的快乐，甚至还可以通过它认识你未来的女朋友。[Ingress](www.ingress.com)就是一款这样神奇的游戏，我对它的预期本来是想杀掉从教学楼回寝室的时间，却邂逅了一位在我自定义标准上的完美美少女。
 
-More info: [Writing](https://hexo.io/docs/writing.html)
+Ingress的本质是一个收集游戏，因为在特工们约饭的时候，他们会像求爱的天堂鸟展示自己羽毛的数量一样炫耀已完成任务列表的排数。所以作为一个特工跑上好几公里去完成一件任务是一件非常平常的事情。西湖寻龙是我和韵喵喵一起完成的第一个任务，我们在一路上聊了很多，不论什么话题都十分投机。从那天起我就知道她是我一直想要追求的理想伴侣。
 
-### Run server
+![](http://pr4gjrd98.bkt.clouddn.com/%E8%A5%BF%E6%B9%96%E5%AF%BB%E9%BE%99.jpg)
 
-``` bash
-$ hexo server
-```
+## 缘起市民中心
 
-More info: [Server](https://hexo.io/docs/server.html)
+众所周知，杭州蓝军特工是勤奋的代名词，所以怠惰的绿军特工们会直接去市民中心吃现成的ap。所以去市民中心刷经验是稀松平常的事情，至于为什么会想要在市民中心表白，其实我也不知道。在表白的想法涌现之前我内心其实一直是非常纠结的，要是被她拒绝了，那我们之后岂不是会连朋友都没得做。但是在不知道什么力量的驱使下，我说了出来，她也接受了。一切描述起来是那样的平淡，回忆起来甚至有点惊心动魄。
 
-### Generate static files
+![](http://pr4gjrd98.bkt.clouddn.com/%E5%88%9D%E9%9F%B3.jpg)
 
-``` bash
-$ hexo generate
-```
+## 罗森的跨年夜
 
-More info: [Generating](https://hexo.io/docs/generating.html)
+作为新晋情侣，跨年一起出去玩自然是必不可少的。那么选择海洋馆想必也是非常正常的，~~因为可以让海洋馆的海豹帮忙抽卡~~。杭州海洋馆的质量是出人意料的高，生物生活的水质，生物的种类以及结合地方特色都做得非常的好。总之在海洋馆度过了开心一天，然后两个人作死去武林广场看跨年，然后打车回学校的时候滴滴排队478/587。最终在罗森度过了愉快的一晚😂。
 
-### Deploy to remote sites
+![](http://pr4gjrd98.bkt.clouddn.com/DSCF1898.jpg)
 
-``` bash
-$ hexo deploy
-```
+## 人山人海的南京
 
-More info: [Deployment](https://hexo.io/docs/deployment.html)
+南京离杭州这么近，但我竟然还从来没有去过。正巧韵喵喵也没有去过，所以南京之旅就提上了日程。但是由于假期南京的游客是在是多，然后历史文化之旅就变成了南京逛商场之旅。虽说是人多，但是有韵喵喵陪就很开心啦。而且南京的湖南菜的湖南风味的四川米粉还挺好吃的，硬是给我吃出了家乡的味道。韵喵喵对于我早饭吃麻辣牛肉粉表示震惊。我们都觉得南京大牌档挺好吃的。
+
+![](http://pr4gjrd98.bkt.clouddn.com/%E5%8D%97%E4%BA%AC-190406-32.jpg)
+
+## 现在
+
+说实话我是没想到我的第一篇博客竟然会是情感类的，虽然博客的链接已经告诉她了。但是我不告诉她更新了，她应该不会来看。所以就写得自我一点了，以后这篇博客随缘更新吧，毕竟我要打造一个技术博客2333333。
+
+![](http://pr4gjrd98.bkt.clouddn.com/%E6%9D%AD%E5%B7%9E%E5%A4%9C%E6%99%AF-190317-31.jpg)
