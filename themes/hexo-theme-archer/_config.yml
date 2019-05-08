@@ -1,6 +1,6 @@
 # ========== Profile ========== #
 # avatar
-avatar: http://pr4gjrd98.bkt.clouddn.com/clear_head.jpg
+avatar: https://i.ibb.co/MNDPrkS/clear-head.jpg
 # author name
 author: Leslie
 # signature
@@ -50,9 +50,9 @@ main_title: Leslie's Studio.
 # subtitle
 subtitle: it's better to burn out than to fade away
 # site haeder image
-site_header_image: http://pr4gjrd98.bkt.clouddn.com/fire_keeper.jpg
+site_header_image: https://i.ibb.co/5rFR3Mk/fire-keeper.jpg
 # post haeder image
-post_header_image: http://pr4gjrd98.bkt.clouddn.com/fire_keeper.jpg
+post_header_image: https://i.ibb.co/5rFR3Mk/fire-keeper.jpg
 # 404 image
 _404_image: '/intro/404-bg.jpg'
 
