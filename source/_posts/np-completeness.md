@@ -1,5 +1,6 @@
 ---
 title: NP-completeness
+abstract: In computational complexity theory, a problem is NP-complete when it can be solved by a restricted class of brute force search algorithms and it can be used to simulate any other problem with a similar algorithm.
 date: 2019-05-11 20:14:58
 tags: Algorithm
 ---
@@ -17,19 +18,19 @@ To solve the problem of NP-completeness. Firstly, we need to figure out what is 
 
 Informally, NP is set of decision problems (a problem that can be posed as a yes-no question of the input values) which can be solved by a polynomial time via a “Lucky Algorithm”, a magical algorithm that always makes a right guess among the given set of choices.
 
-![](Decision_Problem.png)
+<img src="Decision_Problem.png" width="50%"/>
 
 ### NP-complete
 
 A decision problem L is **NP-complete** if:
-1. L is in NP (Any given solution for NP-complete problems can be verified quickly, but there is no efficient known solution).
-2. Every problem in NP is reducible to L in polynomial time (Reduction is defined below).
+- L is in NP (Any given solution for NP-complete problems can be verified quickly, but there is no efficient known solution).
+- Every problem in NP is reducible to L in polynomial time (Reduction is defined below).
 
 ### NP-Hard
 
 A problem is **NP-Hard** if it follows property 2 mentioned above, doesn’t need to follow property 1. Therefore, NP-Complete set is also a subset of NP-Hard set.
 
-![](np-complete_np-hard.png)
+<img src="np-complete_np-hard.png" width="100%"/>
 
 ## The prove of NP-complete
 
