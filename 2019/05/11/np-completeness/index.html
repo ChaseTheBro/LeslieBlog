@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>关系数据库设计 · Leslie&#39;s Studio</title>
+    <title>NP-completeness · Leslie&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -187,7 +187,7 @@
 }( typeof global !== "undefined" ? global : this ) );
 </script>
 
-    <link rel="icon" href="http://pr4gjrd98.bkt.clouddn.com/be_clear.ico">
+    <link rel="icon" href="/assets/be_clear.ico">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
     <link rel="preload" href="/scripts/main.js" as="script">
@@ -217,7 +217,7 @@
                 <a href="/">Leslie&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">关系数据库设计</a>
+                <a href="#" class="post-name">NP-completeness</a>
             </div>
     </div>
     
@@ -241,13 +241,13 @@ height:50vh;
     <!-- 404页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(https://i.ibb.co/5rFR3Mk/fire-keeper.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/fire_keeper.jpg)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            关系数据库设计
+            NP-completeness
             <!-- 404 -->
             
         </h1>
@@ -266,18 +266,18 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Database">Database</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Algorithm">Algorithm</a>
     
 </div>
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1k</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">831</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/08</span>
+                    <span class="post-intro-time">2019/05/11</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,61 +401,25 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="数据库设计与E-R模型"><a href="#数据库设计与E-R模型" class="headerlink" title="数据库设计与E-R模型"></a>数据库设计与E-R模型</h1><h2 id="实体-联系模型"><a href="#实体-联系模型" class="headerlink" title="实体-联系模型"></a>实体-联系模型</h2><h3 id="实体集-amp-联系集"><a href="#实体集-amp-联系集" class="headerlink" title="实体集&amp;联系集"></a>实体集&amp;联系集</h3><p>实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attribution）来表示，每个属性有一个值（value）。</p>
-<p>联系（relationship）指多个实体间的相互关联。联系集（relationship set）是相同类型联系的集合。实体集之间的关联称为参与（participation）。</p>
-<h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><p>每个属性都有一个可以取值的范围称为该属性的域（domain）。属性可以如下划分：</p>
+        <h2 id="NP-P-NP-complete-and-NP-Hard"><a href="#NP-P-NP-complete-and-NP-Hard" class="headerlink" title="NP, P, NP-complete and NP-Hard"></a>NP, P, NP-complete and NP-Hard</h2><p>To solve the problem of NP-completeness. Firstly, we need to figure out what is NP, P, NP-complete and NP-Hard.</p>
+<h3 id="P"><a href="#P" class="headerlink" title="P"></a>P</h3><p><strong>P</strong> is set of problems that can be solved by a deterministic Turing machine in <a href="https://en.wikipedia.org/wiki/Time_complexity#Polylogarithmic_time" target="_blank" rel="noopener">Polynomial time</a>.</p>
+<h3 id="NP"><a href="#NP" class="headerlink" title="NP"></a>NP</h3><p><strong>NP</strong> is set of <a href="https://en.wikipedia.org/wiki/Decision_problem" target="_blank" rel="noopener">decision problems</a> that can be solved by a Non-deterministic Turing Machine in Polynomial time. P is subset of NP (any problem that can be solved by deterministic machine in polynomial time can also be solved by non-deterministic machine in polynomial time).</p>
+<p>Informally, NP is set of decision problems (a problem that can be posed as a yes-no question of the input values) which can be solved by a polynomial time via a “Lucky Algorithm”, a magical algorithm that always makes a right guess among the given set of choices.</p>
+<p><img src="Decision_Problem.png" width="50%"></p>
+<h3 id="NP-complete"><a href="#NP-complete" class="headerlink" title="NP-complete"></a>NP-complete</h3><p>A decision problem L is <strong>NP-complete</strong> if:</p>
 <ul>
-<li>简单（simple）和复合（composite）属性</li>
-<li>单值（single-valued）和多值（multiple-valued）属性</li>
-<li>派生（derived）属性</li>
+<li>L is in NP (Any given solution for NP-complete problems can be verified quickly, but there is no efficient known solution).</li>
+<li>Every problem in NP is reducible to L in polynomial time (Reduction is defined below).</li>
 </ul>
-<h2 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h2><h3 id="映射基数（mapping-cardinality）"><a href="#映射基数（mapping-cardinality）" class="headerlink" title="映射基数（mapping cardinality）"></a>映射基数（mapping cardinality）</h3><p>对于二元关系，映射基数必然是以下情况</p>
-<ul>
-<li>一对一（one-to-one）</li>
-<li>一对多（one-to-many）</li>
-<li>多对一（many-to-one）</li>
-<li>多对多（many-to-many）</li>
-</ul>
-<h3 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h3><p>实体集（E），联系集（R）。E中的每个实体都参与到R的至少一个联系中，E到R的参与称为全部（total）。如果只有部分参与，称为部分（partial）。</p>
-<h3 id="码"><a href="#码" class="headerlink" title="码"></a>码</h3><p>R是一个涉及实体集$E_1, E_2, …, E_n$的联系集。$primary-key(E_i)$代表$E_i$的主码。R的主码构成依赖于同R关联的属性的集合。</p>
-<p>如果R没有属性与之关联</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p>描述了R中的一个联系</p>
-<p>如果R有属性$a_1, a_2, …, a_m$与之关联</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n) \cup \{a_1, a_2, ..., a_m\}</script><p>描述了R中的一个联系</p>
-<p>在上述关系中</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p>是R的一个超码</p>
-<h2 id="从实体集中删除冗余属性"><a href="#从实体集中删除冗余属性" class="headerlink" title="从实体集中删除冗余属性"></a>从实体集中删除冗余属性</h2><p>当一个属性A在两个实体集中都出现时，若A是$E_1$的主码，而在$E_2$中出现，但不构成主码。那么A应该从$E_2$中移除。</p>
-<h2 id="实体联系图"><a href="#实体联系图" class="headerlink" title="实体联系图"></a>实体联系图</h2><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
-<li>分成两部分的矩形代表实体集</li>
-<li>棱形代表联系集</li>
-<li>未分割的矩形代表联系集的属性，主码带下划线</li>
-<li>线段将实体集连接到联系集</li>
-<li>虚线将联系集属性连接到联系集</li>
-<li>双线表示一个实体集全部的参与到联系集中</li>
-<li>双菱形代表连接到弱实体集的标志性联系集</li>
-</ul>
-<h3 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h3><ul>
-<li>一对一：两侧各画一个箭头</li>
-<li>一对多：画箭头到一的实体集，线段到多的实体集</li>
-<li>多对一：同理</li>
-<li>多对多：两侧都画线段</li>
-</ul>
-<p>实体集和二元联系集之间的一条边可以有一个关联最大和最小的映射基数，用l..h表示。最大值为*代表没有限制。</p>
-<h3 id="复杂属性"><a href="#复杂属性" class="headerlink" title="复杂属性"></a>复杂属性</h3><ul>
-<li>缩进表示复合属性</li>
-<li>“{example-attribute}”表示多值属性</li>
-<li>“example-attribute”表示派生属性</li>
-</ul>
-<h3 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h3><p>在矩形与棱形之间的连线上进行标注来表示角色</p>
-<h3 id="非二元的实体联系集"><a href="#非二元的实体联系集" class="headerlink" title="非二元的实体联系集"></a>非二元的实体联系集</h3><p>在非二元的联系集中，我们最多只允许一个箭头。</p>
-<h3 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h3><p>没有足够的属性构成主码的实体集是弱实体集（weak entity set）。弱实体集必须与另一个属主实体集（owner entity set）关联才有意义。这个关系称为存在依赖（existence dependent）。该联系称为标示性联系（identify relationship）。标示性联系是弱实体集到标示实体集的多对一的关系，而且弱实体集的参与是全部的，标示性联系集不应该有任何描述性属性。弱实体集的主码由标示性实体集的主码加上分辨符组成。</p>
-<ul>
-<li>分辨符用虚下划线表示</li>
-<li>联系集用双菱形表示</li>
-</ul>
+<h3 id="NP-Hard"><a href="#NP-Hard" class="headerlink" title="NP-Hard"></a>NP-Hard</h3><p>A problem is <strong>NP-Hard</strong> if it follows property 2 mentioned above, doesn’t need to follow property 1. Therefore, NP-Complete set is also a subset of NP-Hard set.</p>
+<p><img src="np-complete_np-hard.png" width="100%"></p>
+<h2 id="The-prove-of-NP-complete"><a href="#The-prove-of-NP-complete" class="headerlink" title="The prove of NP-complete"></a>The prove of NP-complete</h2><p>From the definition of NP-complete, it appears impossible to prove that a problem L is NP-Complete. By definition, it requires us to that show every problem in NP is polynomial time reducible to L.</p>
+<p>Fortunately, there is an alternate way to prove it. The idea is to take a known NP-Complete problem and reduce it to L. If polynomial time reduction is possible, we can prove that L is NP-Complete by transitivity of reduction (If a NP-Complete problem is reducible to L in polynomial time, then all problems are reducible to L in polynomial time). So, we need to know the first problem solved as NP-complete.</p>
+<h3 id="Boolean-satisfiability-problem"><a href="#Boolean-satisfiability-problem" class="headerlink" title="Boolean satisfiability problem"></a>Boolean satisfiability problem</h3><p><a href="https://en.wikipedia.org/wiki/Boolean_satisfiability_problem" target="_blank" rel="noopener">Boolean satisfiability problem</a> (sometimes called <strong>propositional satisfiability</strong> problem and abbreviated <strong>SATISFIABILITY</strong> or <strong>SAT</strong>) is the problem of determining if there exists an interpretation that satisfies a given Boolean formula. In other words, it asks whether the variables of a given Boolean formula can be consistently replaced by the values TRUE or FALSE in such a way that the formula evaluates to TRUE. If this is the case, the formula is called satisfiable. On the other hand, if no such assignment exists, the function expressed by the formula is FALSE for all possible variable assignments and the formula is unsatisfiable. For example, the formula “a AND NOT b” is satisfiable because one can find the values a = TRUE and b = FALSE, which make (a AND NOT b) = TRUE. In contrast, “a AND NOT a” is unsatisfiable.</p>
+<p>SAT is the first problem that was proven to be NP-complete. This means that all problems in the complexity class NP, which includes a wide range of natural decision and optimization problems, are at most as difficult to solve as SAT. There is no known algorithm that efficiently solves each SAT problem, and it is generally believed that no such algorithm exists; yet this belief has not been proven mathematically, and resolving the question of whether SAT has a polynomial-time algorithm is equivalent to the P versus NP problem, which is a famous open problem in the theory of computing.</p>
+<h3 id="Unrestricted-satisfiability-SAT"><a href="#Unrestricted-satisfiability-SAT" class="headerlink" title="Unrestricted satisfiability (SAT)"></a>Unrestricted satisfiability (SAT)</h3><p>The proof shows how every decision problem in the complexity class NP can be reduced to the SAT problem for CNF formulas, sometimes called CNFSAT. A useful property of Cook’s reduction is that it preserves the number of accepting answers. For example, deciding whether a given graph has a 3-coloring is another problem in NP; if a graph has 17 valid 3-colorings, the SAT formula produced by the Cook–Levin reduction will have 17 satisfying assignments.</p>
+<p>NP-completeness only refers to the run-time of the worst case instances. Many of the instances that occur in practical applications can be solved much more quickly. See Algorithms for solving SAT below.</p>
+<p>SAT is trivial if the formulas are restricted to those in disjunctive normal form, that is, they are disjunction of conjunctions of literals. Such a formula is indeed satisfiable if and only if at least one of its conjunctions is satisfiable, and a conjunction is satisfiable if and only if it does not contain both x and NOT x for some variable x. This can be checked in linear time. Furthermore, if they are restricted to being in full disjunctive normal form, in which every variable appears exactly once in every conjunction, they can be checked in constant time (each conjunction represents one satisfying assignment). But it can take exponential time and space to convert a general SAT problem to disjunctive normal form; for an example exchange $\vee$ and $\wedge$ in the above exponential blow-up example for conjunctive normal forms.</p>
 
     </article>
     <!-- license  -->
@@ -468,7 +432,7 @@ primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href="/2019/05/08/cat_pig/" title="🐱&🐷">
+                <a href="/2019/05/10/cat_pig/" title="🐱&🐷">
                     <div class="prevTitle">🐱&🐷</div>
                 </a>
             
@@ -479,6 +443,27 @@ primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p
 
 <!-- City版安装代码已完成 -->
     
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        
+        var disqus_config = function () {
+        this.page.url = "https://Leslie.ink/2019/05/11/np-completeness/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "NP-completeness"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://leslieblog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
     
     <!-- partial('_partial/comment/changyan') -->
     <!--PC版-->
@@ -583,7 +568,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库设计与E-R模型"><span class="toc-number">1.</span> <span class="toc-text">数据库设计与E-R模型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#实体-联系模型"><span class="toc-number">1.1.</span> <span class="toc-text">实体-联系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实体集-amp-联系集"><span class="toc-number">1.1.1.</span> <span class="toc-text">实体集&amp;联系集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#属性"><span class="toc-number">1.1.2.</span> <span class="toc-text">属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#约束"><span class="toc-number">1.2.</span> <span class="toc-text">约束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#映射基数（mapping-cardinality）"><span class="toc-number">1.2.1.</span> <span class="toc-text">映射基数（mapping cardinality）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参与约束"><span class="toc-number">1.2.2.</span> <span class="toc-text">参与约束</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#码"><span class="toc-number">1.2.3.</span> <span class="toc-text">码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从实体集中删除冗余属性"><span class="toc-number">1.3.</span> <span class="toc-text">从实体集中删除冗余属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实体联系图"><span class="toc-number">1.4.</span> <span class="toc-text">实体联系图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本结构"><span class="toc-number">1.4.1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#映射基数"><span class="toc-number">1.4.2.</span> <span class="toc-text">映射基数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#复杂属性"><span class="toc-number">1.4.3.</span> <span class="toc-text">复杂属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#角色"><span class="toc-number">1.4.4.</span> <span class="toc-text">角色</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非二元的实体联系集"><span class="toc-number">1.4.5.</span> <span class="toc-text">非二元的实体联系集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#弱实体集"><span class="toc-number">1.4.6.</span> <span class="toc-text">弱实体集</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NP-P-NP-complete-and-NP-Hard"><span class="toc-number">1.</span> <span class="toc-text">NP, P, NP-complete and NP-Hard</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#P"><span class="toc-number">1.1.</span> <span class="toc-text">P</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NP"><span class="toc-number">1.2.</span> <span class="toc-text">NP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NP-complete"><span class="toc-number">1.3.</span> <span class="toc-text">NP-complete</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NP-Hard"><span class="toc-number">1.4.</span> <span class="toc-text">NP-Hard</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-prove-of-NP-complete"><span class="toc-number">2.</span> <span class="toc-text">The prove of NP-complete</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Boolean-satisfiability-problem"><span class="toc-number">2.1.</span> <span class="toc-text">Boolean satisfiability problem</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unrestricted-satisfiability-SAT"><span class="toc-number">2.2.</span> <span class="toc-text">Unrestricted satisfiability (SAT)</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -614,9 +599,16 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 2
+        Total : 3
         </div>
         <!-- search  -->
         
@@ -632,18 +624,25 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/08</span><a class="archive-post-title" href="/2019/05/08/db_design/">关系数据库设计</a>
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href="/2019/05/11/np-completeness/">NP-completeness</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">05/08</span><a class="archive-post-title" href="/2019/05/08/cat_pig/">🐱&🐷</a>
+            <span class="archive-post-date">05/10</span><a class="archive-post-title" href="/2019/05/10/cat_pig/">🐱&🐷</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/09</span><a class="archive-post-title" href="/2019/05/09/db_design/">关系数据库设计</a>
         </li>
     
     </ul></div>
   </div>
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="Algorithm"><span class="iconfont-archer">&#xe606;</span>Algorithm</span>
     
         <span class="sidebar-tag-name" data-tags="Database"><span class="iconfont-archer">&#xe606;</span>Database</span>
     
