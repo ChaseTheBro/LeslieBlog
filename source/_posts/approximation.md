@@ -1,5 +1,6 @@
 ---
-title: approximation
+title: Approximation
+abstract: In computer science, a polynomial-time approximation scheme (PTAS) is a type of approximation algorithm for optimization problems (most often, NP-hard optimization problems).
 date: 2019-05-15 20:13:03
 tags: Algorithm
 ---
@@ -146,15 +147,15 @@ We know that 0-1 knapsack is NP Complete. There is a DP based pseudo polynomial 
 
 ### Solution:
 
-1. Find the maximum valued item, i.e., find maximum value in val[]. Let this maximum value be maxVal.
-2. Compute adjustment factor k for all values
+- Find the maximum valued item, i.e., find maximum value in val[]. Let this maximum value be maxVal.
+- Compute adjustment factor k for all values
 ```
 k  = (maxVal * ε) / n
 ```
-3. Adjust all values, i.e., create a new array val'[] that values divided by k. Do following for every value val[i].
+- Adjust all values, i.e., create a new array val'[] that values divided by k. Do following for every value val[i].
 ```
 val'[i] = floor(val[i] / k)
 ```
-4. Run DP based solution for reduced values, i,e, val'[0..n-1] and all other parameter same.
+- Run DP based solution for reduced values, i,e, val'[0..n-1] and all other parameter same.
 
 The above solution works in polynomial time in terms of both n and ε. The solution provided by this FPTAS is $(1 - \epsilon)-approximate$. The idea is to rounds off some of the least significant digits of values then they will be bounded by a polynomial and $1/\epsilon$.
