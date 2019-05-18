@@ -63,7 +63,7 @@ Descend to the leaf where the key exists.
 
 **Initial:**
 
-![](bplustree.png)
+![](bplustree-1.png)
 
 **Insert 9:**
 
