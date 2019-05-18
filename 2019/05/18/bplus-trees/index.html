@@ -22,7 +22,7 @@
     <meta name="description" content>
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>关系数据库设计 · Leslie&#39;s Studio</title>
+    <title>B+-trees · Leslie&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/">Leslie&#39;s Studio.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">关系数据库设计</a>
+                <a href="#" class="post-name">B+-trees</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            关系数据库设计
+            B+-trees
             <!-- 404 -->
             
         </h1>
@@ -264,20 +264,14 @@ height:50vh;
             <div class="post-intros">
                 <!-- 文章页标签  -->
                 
-                    <div class="post-intro-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Database">Database</a>
-    
-</div>
-                
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.8k</span>阅读时长: <span class="post-count reading-time">6 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">881</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2019/05/09</span>
+                    <span class="post-intro-time">2019/05/18</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,109 +395,102 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="数据库设计与E-R模型"><a href="#数据库设计与E-R模型" class="headerlink" title="数据库设计与E-R模型"></a>数据库设计与E-R模型</h2><h3 id="实体-联系模型"><a href="#实体-联系模型" class="headerlink" title="实体-联系模型"></a>实体-联系模型</h3><h4 id="实体集-amp-联系集"><a href="#实体集-amp-联系集" class="headerlink" title="实体集&amp;联系集"></a>实体集&amp;联系集</h4><p>实体-联系（entity-relationship，E-R）。实体表示现实世界中可区别于所有其他对象的的一个“事物”或“对象”。每个实体有一组性质，其中一些性质的值可以唯一的标示一个实体。实体集（entity set）是具有相同类型的一个实体集合。外延（extension）指属于实体集的实体的实际的集合。实体通过一组属性（attribution）来表示，每个属性有一个值（value）。</p>
-<p>联系（relationship）指多个实体间的相互关联。联系集（relationship set）是相同类型联系的集合。实体集之间的关联称为参与（participation）。</p>
-<h4 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h4><p>每个属性都有一个可以取值的范围称为该属性的域（domain）。属性可以如下划分：</p>
+        <h2 id="What-is-a-B-tree"><a href="#What-is-a-B-tree" class="headerlink" title="What is a B+-tree"></a>What is a <strong>B+</strong>-tree</h2><p>Most queries can be executed more quickly if the values are stored in order. But it’s not practical to hope to store all the rows in the table one after another, in sorted order, because this requires rewriting the entire table with each insertion or deletion of a row.</p>
+<p>This leads us to instead imagine storing our rows in a tree structure. Our first instinct would be a balanced binary search tree like a red-black tree, but this really doesn’t make much sense for a database since it is stored on disk. You see, disks work by reading and writing whole blocks of data at once — typically 512 bytes or four kilobytes. A node of a binary search tree uses a small fraction of that, so it makes sense to look for a structure that fits more neatly into a disk block.</p>
+<p>Hence the B+-tree, in which each node stores up to $d$ references to children and up to $d$ − 1 keys. Each reference is considered “between” two of the node’s keys; it references the root of a subtree for which all values are between these two keys.</p>
+<p>Here is a fairly small tree using 4 as our value for $d$.</p>
+<p><img src="bplustree-0.png" alt></p>
+<p>A B+-tree requires that each leaf be the same distance from the root, as in this picture, where searching for any of the 11 values (all listed on the bottom level) will involve loading three nodes from the disk (the root block, a second-level block, and a leaf).</p>
+<p>In practice, d will be larger — as large, in fact, as it takes to fill a disk block. Suppose a block is 4KB, our keys are 4-byte integers, and each reference is a 6-byte file offset. Then we’d choose d to be the largest value so that 4 (d − 1) + 6 d ≤ 4096; solving this inequality for d, we end up with d ≤ 410, so we’d use 410 for d. As you can see, d can be large.</p>
+<p>A B+-tree maintains the following invariants:</p>
 <ul>
-<li>简单（simple）和复合（composite）属性</li>
-<li>单值（single-valued）和多值（multiple-valued）属性</li>
-<li>派生（derived）属性</li>
+<li><p>Every node has one more references than it has keys.</p>
+</li>
+<li><p>All leaves are at the same distance from the root.</p>
+</li>
+<li><p>For every non-leaf node $N$ with $k$ being the number of keys in $N$: all keys in the first child’s subtree are less than $N’s$ first key; and all keys in the ith child’s subtree (2 ≤ $i$ ≤ $k$) are between the ($i$ − 1)th key of n and the ith key of n.</p>
+</li>
+<li><p>The root has at least two children.</p>
+</li>
+<li><p>Every non-leaf, non-root node has at least $\lceil d / 2 \rceil$ children.</p>
+</li>
+<li><p>Each leaf contains at least $\lceil d / 2 \rceil$ keys.</p>
+</li>
+<li><p>Every key from the table appears in a leaf, in left-to-right sorted order.</p>
+</li>
 </ul>
-<h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><h4 id="映射基数（mapping-cardinality）"><a href="#映射基数（mapping-cardinality）" class="headerlink" title="映射基数（mapping cardinality）"></a>映射基数（mapping cardinality）</h4><p>对于二元关系，映射基数必然是以下情况</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Node Type</th>
+<th>Children Type</th>
+<th>Min Number of Children</th>
+<th>Max Number of Children</th>
+<th>Example<br>($b$ = 7)</th>
+<th>Example<br>($b$ = 100)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Root Node (when it is the only node in the tree)</td>
+<td>Records</td>
+<td>1</td>
+<td>$d$ - 1</td>
+<td>1-6</td>
+<td>1–99</td>
+</tr>
+<tr>
+<td>Root Node</td>
+<td>Internal Nodes or Leaf Nodes</td>
+<td>2</td>
+<td>$d$</td>
+<td>2–7</td>
+<td>2–100</td>
+</tr>
+<tr>
+<td>Internal Node</td>
+<td>Internal Nodes or Leaf Nodes</td>
+<td>$\lceil d / 2 \rceil$</td>
+<td>$d$</td>
+<td>4–7</td>
+<td>50–100</td>
+</tr>
+<tr>
+<td>Leaf Node</td>
+<td>Records</td>
+<td>$\lceil d / 2 \rceil$</td>
+<td>$d$</td>
+<td>4–7</td>
+<td>50–100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Insertion"><a href="#Insertion" class="headerlink" title="Insertion"></a>Insertion</h2><p>Descend to the leaf where the key fits.</p>
 <ul>
-<li>一对一（one-to-one）</li>
-<li>一对多（one-to-many）</li>
-<li>多对一（many-to-one）</li>
-<li>多对多（many-to-many）</li>
+<li>If the node has an empty space, insert the key/reference pair into the node.</li>
+<li>If the node is already full, split it into two nodes, distributing the keys evenly between the two nodes. If the node is a leaf, take a copy of the minimum value in the second of these two nodes and repeat this insertion algorithm to insert it into the parent node. If the node is a non-leaf, exclude the middle value during the split and repeat this insertion algorithm to insert this excluded value into the parent node.</li>
 </ul>
-<h4 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h4><p>实体集（E），联系集（R）。E中的每个实体都参与到R的至少一个联系中，E到R的参与称为全部（total）。如果只有部分参与，称为部分（partial）。</p>
-<h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><p>R是一个涉及实体集$E_1, E_2, …, E_n$的联系集。$primary-key(E_i)$代表$E_i$的主码。R的主码构成依赖于同R关联的属性的集合。</p>
-<p>如果R没有属性与之关联</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p>描述了R中的一个联系</p>
-<p>如果R有属性$a_1, a_2, …, a_m$与之关联</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n) \cup \{a_1, a_2, ..., a_m\}</script><p>描述了R中的一个联系</p>
-<p>在上述关系中</p>
-<script type="math/tex; mode=display">
-primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p>是R的一个超码</p>
-<h3 id="从实体集中删除冗余属性"><a href="#从实体集中删除冗余属性" class="headerlink" title="从实体集中删除冗余属性"></a>从实体集中删除冗余属性</h3><p>当一个属性A在两个实体集中都出现时，若A是$E_1$的主码，而在$E_2$中出现，但不构成主码。那么A应该从$E_2$中移除。</p>
-<h3 id="实体联系图"><a href="#实体联系图" class="headerlink" title="实体联系图"></a>实体联系图</h3><h4 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h4><ul>
-<li>分成两部分的矩形代表实体集</li>
-<li>棱形代表联系集</li>
-<li>未分割的矩形代表联系集的属性，主码带下划线</li>
-<li>线段将实体集连接到联系集</li>
-<li>虚线将联系集属性连接到联系集</li>
-<li>双线表示一个实体集全部的参与到联系集中</li>
-<li>双菱形代表连接到弱实体集的标志性联系集</li>
-</ul>
-<h4 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h4><ul>
-<li>一对一：两侧各画一个箭头</li>
-<li>一对多：画箭头到一的实体集，线段到多的实体集</li>
-<li>多对一：同理</li>
-<li>多对多：两侧都画线段</li>
-</ul>
-<p>实体集和二元联系集之间的一条边可以有一个关联最大和最小的映射基数，用l..h表示。最大值为*代表没有限制。</p>
-<h4 id="复杂属性"><a href="#复杂属性" class="headerlink" title="复杂属性"></a>复杂属性</h4><ul>
-<li>缩进表示复合属性</li>
-<li>“{example-attribute}”表示多值属性</li>
-<li>“example-attribute”表示派生属性</li>
-</ul>
-<h4 id="角色"><a href="#角色" class="headerlink" title="角色"></a>角色</h4><p>在矩形与棱形之间的连线上进行标注来表示角色</p>
-<h4 id="非二元的实体联系集"><a href="#非二元的实体联系集" class="headerlink" title="非二元的实体联系集"></a>非二元的实体联系集</h4><p>在非二元的联系集中，我们最多只允许一个箭头。</p>
-<h4 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h4><p>没有足够的属性构成主码的实体集是弱实体集（weak entity set）。弱实体集必须与另一个属主实体集（owner entity set）关联才有意义。这个关系称为存在依赖（existence dependent）。该联系称为标示性联系（identify relationship）。标示性联系是弱实体集到标示实体集的多对一的关系，而且弱实体集的参与是全部的，标示性联系集不应该有任何描述性属性。弱实体集的主码由标示性实体集的主码加上分辨符组成。</p>
+<h2 id="Deletion"><a href="#Deletion" class="headerlink" title="Deletion"></a>Deletion</h2><p>Descend to the leaf where the key exists.</p>
 <ul>
-<li>分辨符用虚下划线表示</li>
-<li>联系集用双菱形表示</li>
+<li>Remove the required key and associated reference from the node.</li>
+<li>If the node still has enough keys and references to satisfy the invariants, stop.</li>
+<li>If the node has too few keys to satisfy the invariants, but its next oldest or next youngest sibling at the same level has more than necessary, distribute the keys between this node and the neighbor. Repair the keys in the level above to represent that these nodes now have a different “split point” between them; this involves simply changing a key in the levels above, without deletion or insertion.</li>
+<li>If the node has too few keys to satisfy the invariant, and the next oldest or next youngest sibling is at the minimum for the invariant, then merge the node with its sibling; if the node is a non-leaf, we will need to incorporate the “split key” from the parent into our merging. In either case, we will need to repeat the removal algorithm on the parent node to remove the “split key” that previously separated these merged nodes — unless the parent is the root and we are removing the final key from the root, in which case the merged node becomes the new root (and the tree has become one level shorter than before).</li>
 </ul>
-<h2 id="关系数据库设计"><a href="#关系数据库设计" class="headerlink" title="关系数据库设计"></a>关系数据库设计</h2><h3 id="原子域与第一范式"><a href="#原子域与第一范式" class="headerlink" title="原子域与第一范式"></a>原子域与第一范式</h3><p>一个域是原子的（atomic），如果该域的元素被认为是不可分的单元。R是第一范式（First Normal Form， 1NF），如果R中所有属性的域都是原子的。</p>
-<h3 id="使用函数依赖进行分解"><a href="#使用函数依赖进行分解" class="headerlink" title="使用函数依赖进行分解"></a>使用函数依赖进行分解</h3><ul>
-<li>使用希腊字母表示属性集（e.g. $\alpha$）。小写罗马字母后跟用圆括号括住的大写字母来表示关系模式（e.g. $r(R)$）</li>
-<li>属性集是超码时用，用$K$表示</li>
-<li>对关系使用小写名称</li>
-</ul>
-<h4 id="码和函数依赖"><a href="#码和函数依赖" class="headerlink" title="码和函数依赖"></a>码和函数依赖</h4><p>一个关系的满足现实世界约束的实例，成为关系的合法实例（legal instance）。</p>
-<p>令$r(R)$是一个关系模式。在关系$r(R)$的任何合法实例中，对于$r$的实例中的所有元组对$t_1$和$t_2$总满足，若$t_1 \neq t_2$，则$t_1[K] \neq t_2[K]$。</p>
-<p>有$r(R)$，$\alpha \subseteq R$且$\beta \subseteq R$</p>
-<ul>
-<li>给定一个实例，满足函数依赖$\alpha \rightarrow \beta$的条件是：对于所有元组对$t_1$和$t_2$，若$t_1[\alpha]=t_2[\alpha]$，则$t_1[\beta]=t_2[\beta]$</li>
-<li>若所有合法实例都满足函数依赖$\alpha \rightarrow \beta$，该函数依赖在$r(R)$上成立</li>
-</ul>
-<p>有以下两种方式使用函数依赖</p>
-<ul>
-<li>判定关系的实例是否满足给定函数一俩集$F$</li>
-<li>说明合法关系上的约束</li>
-</ul>
-<p>如果函数依赖在所有的关系中都满足，那么就称该函数关系是平凡（trival）的。给定关系$r(R)$上成立的函数依赖集$F$。使用$F^+$表示$F$集合的闭包（closure）。</p>
-<h4 id="Boyce-Codd-Normal-Form"><a href="#Boyce-Codd-Normal-Form" class="headerlink" title="Boyce-Codd Normal Form"></a>Boyce-Codd Normal Form</h4><p>具有函数依赖集$F$的关系模式$R$属于BCNF的条件是，对$F^+$中所有的函数依赖$\alpha \rightarrow \beta$</p>
-<ul>
-<li>函数依赖$\alpha \rightarrow \beta$是平凡的</li>
-<li>$\alpha$是$R$的一个超码</li>
-</ul>
-<p>设$R$为不属于BCNF的一个模式，存在非平凡的函数依赖$\alpha \rightarrow \beta$。用以下两个模式取代$R$</p>
-<ul>
-<li>$(\alpha \cup \beta)$</li>
-<li>$(R - (\beta - \alpha))$</li>
-</ul>
-<h4 id="第三范式"><a href="#第三范式" class="headerlink" title="第三范式"></a>第三范式</h4><p>具有函数依赖集$F$的关系模式$R$属于3NF的条件是，对$F^+$中所有的函数依赖$\alpha \rightarrow \beta$</p>
-<ul>
-<li>$\alpha \rightarrow \beta$是一个平凡的函数依赖</li>
-<li>$\alpha$是$R$的一个超码</li>
-<li>$\beta - \alpha$中每个属性$A$都包含在$R$的一个候选码中</li>
-</ul>
-<h3 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h3><h4 id="函数依赖的闭包"><a href="#函数依赖的闭包" class="headerlink" title="函数依赖的闭包"></a>函数依赖的闭包</h4><p>如果$R$中每一个满足$F$的实例也满足$f$，则$R$上的函数依赖$f$被$r$上的函数依赖集$F$逻辑蕴含（logically imply）。用大写罗马字母表示单个属性，$\alpha\beta$表示$\alpha \cup \beta$。使用<strong>Armstrong’s axiom</strong>寻找逻辑蕴含的函数依赖。</p>
-<ul>
-<li>自反律（reflexivity rule）。若$\beta \subseteq \alpha$，则$\alpha \rightarrow \beta$</li>
-<li>增补律（augmentation rule）。若$\alpha \rightarrow \beta$，则$\alpha\gamma \rightarrow \beta\gamma$</li>
-<li>传递律（transitivity rule）。若$\alpha \rightarrow \beta$且$\beta \rightarrow \gamma$，则$\alpha \rightarrow \gamma$</li>
-</ul>
-<p>通过<strong>Armstrong’s axiom</strong>可以推出</p>
-<ul>
-<li>合并律（union rule）。若$\alpha \rightarrow \beta$且$\alpha \rightarrow \gamma$，则$\alpha \rightarrow \beta\gamma$</li>
-<li>分解率（decomposition rule），若$\alpha \rightarrow \beta\gamma$，则$\alpha \rightarrow \beta$且$\alpha \rightarrow \gamma$</li>
-<li>伪传递律（pseudotransitivity rule），$\alpha \rightarrow \beta$且$\beta\lambda \rightarrow \gamma$，则$\alpha\lambda \rightarrow \gamma$</li>
-</ul>
-<h4 id="属性的闭包"><a href="#属性的闭包" class="headerlink" title="属性的闭包"></a>属性的闭包</h4><p>如果$\alpha \rightarrow B$，称属性$B$被$\alpha$函数确定（functionally determine）。</p>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><p><strong>Initial:</strong></p>
+<p><img src="bplustree.png" alt></p>
+<p><strong>Insert 9:</strong></p>
+<p><img src="insert9.png" alt></p>
+<p><strong>Insert 10:</strong></p>
+<p><img src="insert10.png" alt></p>
+<p><strong>Insert 8:</strong></p>
+<p><img src="insert8.png" alt></p>
+<p><strong>Delete 23:</strong></p>
+<p><img src="delete23.png" alt></p>
+<p><strong>Delete 19:</strong></p>
+<p><img src="delete19.png" alt></p>
 
     </article>
     <!-- license  -->
@@ -512,13 +499,13 @@ primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href="/2019/05/11/np-completeness/" title="NP-completeness">
-                    <div class="nextTitle">NP-completeness</div>
-                </a>
-            
         </li>
         <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2019/05/15/approximation/" title="Approximation">
+                    <div class="prevTitle">Approximation</div>
+                </a>
             
         </li>
     </ul>
@@ -534,8 +521,8 @@ primary-key(E_1) \cup primary-key(E_2) \cup ... \cup primary-key(E_n)</script><p
     *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
         
         var disqus_config = function () {
-        this.page.url = "https://Leslie.ink/2019/05/09/db_design/";  // Replace PAGE_URL with your page's canonical URL variable
-        this.page.identifier = "关系数据库设计"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        this.page.url = "https://Leslie.ink/2019/05/18/bplus-trees/";  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = "B+-trees"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
         
         (function () { // DON'T EDIT BELOW THIS LINE
@@ -652,7 +639,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库设计与E-R模型"><span class="toc-number">1.</span> <span class="toc-text">数据库设计与E-R模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实体-联系模型"><span class="toc-number">1.1.</span> <span class="toc-text">实体-联系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实体集-amp-联系集"><span class="toc-number">1.1.1.</span> <span class="toc-text">实体集&amp;联系集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性"><span class="toc-number">1.1.2.</span> <span class="toc-text">属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#约束"><span class="toc-number">1.2.</span> <span class="toc-text">约束</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#映射基数（mapping-cardinality）"><span class="toc-number">1.2.1.</span> <span class="toc-text">映射基数（mapping cardinality）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参与约束"><span class="toc-number">1.2.2.</span> <span class="toc-text">参与约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#码"><span class="toc-number">1.2.3.</span> <span class="toc-text">码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从实体集中删除冗余属性"><span class="toc-number">1.3.</span> <span class="toc-text">从实体集中删除冗余属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实体联系图"><span class="toc-number">1.4.</span> <span class="toc-text">实体联系图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本结构"><span class="toc-number">1.4.1.</span> <span class="toc-text">基本结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#映射基数"><span class="toc-number">1.4.2.</span> <span class="toc-text">映射基数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#复杂属性"><span class="toc-number">1.4.3.</span> <span class="toc-text">复杂属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#角色"><span class="toc-number">1.4.4.</span> <span class="toc-text">角色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非二元的实体联系集"><span class="toc-number">1.4.5.</span> <span class="toc-text">非二元的实体联系集</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#弱实体集"><span class="toc-number">1.4.6.</span> <span class="toc-text">弱实体集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关系数据库设计"><span class="toc-number">2.</span> <span class="toc-text">关系数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#原子域与第一范式"><span class="toc-number">2.1.</span> <span class="toc-text">原子域与第一范式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用函数依赖进行分解"><span class="toc-number">2.2.</span> <span class="toc-text">使用函数依赖进行分解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#码和函数依赖"><span class="toc-number">2.2.1.</span> <span class="toc-text">码和函数依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Boyce-Codd-Normal-Form"><span class="toc-number">2.2.2.</span> <span class="toc-text">Boyce-Codd Normal Form</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#第三范式"><span class="toc-number">2.2.3.</span> <span class="toc-text">第三范式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数依赖理论"><span class="toc-number">2.3.</span> <span class="toc-text">函数依赖理论</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数依赖的闭包"><span class="toc-number">2.3.1.</span> <span class="toc-text">函数依赖的闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#属性的闭包"><span class="toc-number">2.3.2.</span> <span class="toc-text">属性的闭包</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What-is-a-B-tree"><span class="toc-number">1.</span> <span class="toc-text">What is a B+-tree</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Insertion"><span class="toc-number">2.</span> <span class="toc-text">Insertion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deletion"><span class="toc-number">3.</span> <span class="toc-text">Deletion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Example"><span class="toc-number">4.</span> <span class="toc-text">Example</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
