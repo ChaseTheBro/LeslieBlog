@@ -1,7 +1,8 @@
 ---
 title: B+-trees
 date: 2019-05-18 20:43:48
-tags:
+tags: Database
+abstract: The review of B+-tree, which disturbs me for a long time.
 ---
 ## What is a **B+**-tree
 
