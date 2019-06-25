@@ -100,5 +100,5 @@ deploy:
   type: git
   repo:
       github: git@github.com:ChaseTheBro/LeslieBlog.git
-      server: git@45.76.203.23:/var/repo/hexoBlog.git
+      server: git@47.100.247.28:/var/repo/hexoBlog.git
   branch: master
