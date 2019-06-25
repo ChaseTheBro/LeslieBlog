@@ -3,5 +3,6 @@ Thumbs.db
 db.json
 *.log
 *.cmd
+.vscode/
 public/
 .deploy*/
