@@ -39,7 +39,7 @@ When processing next item, check if it fits in the same bin as the last item. Us
 Next Fit is 2-approximate, i.e., the number of bins used by this algorithm is bounded by twice of optimal. Consider any two adjacent bins. The sum of items in these two bins must be bigger than the comtent; otherwise, NextFit would have put all the items of second bin into the first. The same holds for all other bins. Thus, at most half the space is wasted, and so Next Fit uses at most 2M bins if M is optimal.
 
 ```cpp
-#include <iostream> 
+#include <iostream>
 using namespace std; 
   
 // Returns number of bins required using next fit  
